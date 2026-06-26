@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import LikeItem from "./LikeItem.jsx";
 import "./App.css";
 
@@ -13,13 +13,13 @@ const INITIAL_ITEMS = [
 function App() {
   const [items, setItems] = useState(INITIAL_ITEMS);
 
-  const handleLike = (id) => {
+  const handleLike = useCallback((id) => {
     setItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, likes: item.likes + 1 } : item,
       ),
     );
-  };
+  }, []); // 함수형 업데이트를 사용했으므로 의존성 배열을 비울 수 있음
 
   const totalLikes = items.reduce((sum, item) => sum + item.likes, 0);
 

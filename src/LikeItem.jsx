@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 function LikeItem({ item, onLike }) {
   return (
     <li className="like-item">
@@ -10,4 +12,4 @@ function LikeItem({ item, onLike }) {
   )
 }
 
-export default LikeItem
+export default memo(LikeItem)
