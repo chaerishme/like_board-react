@@ -1,16 +1,42 @@
-# React + Vite
+# 좋아요 보드 (Like Board)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 렌더링 최적화를 학습하기 위해 만든 연습 프로젝트.
+단순히 동작하는 앱을 만드는 게 아니라, **"최적화를 왜 / 언제 / 어떻게 적용하는가"**를
+직접 측정하면서 익히는 데 목적을 뒀다.
 
-Currently, two official plugins are available:
+여러 항목에 각각 좋아요를 누르는 단순한 앱이지만,
+"하나만 눌렀는데 전부 리렌더되는" 문제를 의도적으로 만들고
+`React.memo` · `useCallback` · `useMemo` · Context 분리로 단계적으로 해결한다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> 단계별 설계는 [MILESTONE.md](./MILESTONE.md)를 따랐다.
 
-## React Compiler
+## 기술 스택
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Vite (`react-rs` 템플릿)
+- React DevTools Profiler (리렌더 측정)
 
-## Expanding the ESLint configuration
+## 실행
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## 핵심 기능
+
+- 항목별 좋아요 버튼 (해당 항목 카운트만 증가)
+- 총 좋아요 수 집계 표시
+- 상태 불변성 유지 (`map`으로 새 배열 생성, 직접 변경 금지)
+
+## 이 프로젝트의 진짜 목적: 최적화 4종 세트
+
+기능 자체는 단순하다. 핵심은 **최적화를 적용하는 순서와 측정**이다.
+
+### 작업 원칙
+
+1. **기능을 먼저 완성한다.** 최적화는 그 다음.
+2. **측정 후 적용한다.** 적용 전후를 Profiler로 비교해 효과를 눈으로 확인한다.
+3. **필요한 곳에만 적용한다.** 작은 규모에선 최적화가 오히려 비용일 수 있다.
+
